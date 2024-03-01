@@ -53,11 +53,11 @@ def builder = new PipelineJobBuilder(binding) {
 }
 
 builder.computeJenkinsFolderForProject = { String project, String branch ->
-    return builder.projectJobsWorkspace()
+    return ''
 }
 
 builder.computeJobNameForProject = { String jenkinsFolder, String project, String branch, String jobType ->
-    return "$jenkinsFolder/$project"
+    return project
 }
 
 builder
