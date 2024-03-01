@@ -6,7 +6,7 @@ new PipelineJobBuilder(binding) {
     @Override
     protected void doBuildBranch(JobParent jobParent, String gitbranch, String branchType, String branch) {
         jobTypes = ['job']
-        doBuildBranch(jobParent, gitbranch, branchType, branch)
+        super.doBuildBranch(jobParent, gitbranch, branchType, branch)
     }
 
     @Override
