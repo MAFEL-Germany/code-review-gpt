@@ -1,7 +1,7 @@
 import de.gebit.build.jenkins.PipelineJobBuilder
 import javaposse.jobdsl.dsl.JobParent
 
-new PipelineJobBuilder(binding) {
+def builder = new PipelineJobBuilder(binding) {
 
     @Override
     protected void doBuildBranch(JobParent jobParent, String gitbranch, String branchType, String branch) {
@@ -51,3 +51,13 @@ new PipelineJobBuilder(binding) {
         }
     }
 }
+
+builder.computeJenkinsFolderForProject = { String project, String branch ->
+    return builder.projectJobsWorkspace()
+}
+
+builder.computeJobNameForProject = { String jenkinsFolder, String project, String branch, String jobType ->
+    return "$jenkinsFolder/$project"
+}
+
+builder
