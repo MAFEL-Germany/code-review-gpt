@@ -28,7 +28,7 @@ def builder = new PipelineJobBuilder(binding) {
 This job will be triggered only by a GitLab Merge Request Events (opened, commented) and can't be triggered manually.
 
 In order to enable Code Review GPT for a project, a Webhook should be configured for the project in GitLab (Settings -> Webhooks) with following parameters:
-- URL: ${jobProperties['JENKINS_URL']}project/${jobProperties['JOB_NAME']}
+- URL: ${jobProperties['JENKINS_URL']}project/${getPathRelativeToRoot(computeJobName(jenkinsFolder, branch, jobType))}
 - Secret Token: ${jobProperties.customProperties['WEBHOOK_SECRET']}
 - Trigger: Comments, Merge request events""")
             properties {
