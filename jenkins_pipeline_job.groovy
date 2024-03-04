@@ -23,6 +23,14 @@ def builder = new PipelineJobBuilder(binding) {
     @Override
     protected void configureJobTrigger(String jenkinsFolder, String jobType, String branch, String branchType) {
         job.with {
+            description("""Code Review GPT job uses Large Language Models to review code in your merge requests. It helps streamline the code review process by providing feedback on code that may have issues or areas for improvement.
+
+This job will be triggered only by a GitLab Merge Request Events (opened, commented) and can't be triggered manually.
+
+In order to enable Code Review GPT for a project, a Webhook should be configured for the project in GitLab (Settings -> Webhooks) with following parameters:
+- URL: ${jobProperties['JENKINS_URL']}project/${jobProperties['JOB_NAME']}
+- Secret Token: ${jobProperties.customProperties['WEBHOOK_SECRET']}
+- Trigger: Comments, Merge request events""")
             properties {
                 pipelineTriggers {
                     triggers {
@@ -41,7 +49,7 @@ def builder = new PipelineJobBuilder(binding) {
                             noteRegex('^\\s*#(analyze|ai)\\s*$')
                             skipWorkInProgressMergeRequest(false)
                             setBuildDescription(false)
-                            secretToken('e296b73bb48b3d85d38afe8f13f67691')
+                            secretToken(jobProperties.customProperties['WEBHOOK_SECRET'])
                             branchFilterType('RegexBasedFilter')
                             sourceBranchRegex('feature/.*|epic/.*')
                         }
