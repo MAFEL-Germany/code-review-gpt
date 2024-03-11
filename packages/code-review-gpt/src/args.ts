@@ -59,7 +59,34 @@ export const getYargs = async (): Promise<ReviewArgs> => {
       default: "changed",
     })
     .option("remote", {
-      description: "The identifier of a remote Pull Request to review",
+      description: "The identifier of a remote GitHub Pull Request to review",
+      type: "string",
+      coerce: (arg: string | undefined) => {
+        return arg || "";
+      },
+    })
+    .option("remoteType", {
+      description: "The identifier of a remote GitHub Pull Request to review",
+      type: "string",
+      choices: ["github", "gitlab"],
+      default: "gitlab"
+    })
+    .option("remoteGitlabProjectId", {
+      description: "The id of a remote GitLab project",
+      type: "string",
+      coerce: (arg: string | undefined) => {
+        return arg || "";
+      },
+    })
+    .option("remoteGitlabMergeId", {
+      description: "The id of a remote GitLab merge request",
+      type: "string",
+      coerce: (arg: string | undefined) => {
+        return arg || "";
+      },
+    })
+    .option("remoteHostUrl", {
+      description: "The id of a GitLab server",
       type: "string",
       coerce: (arg: string | undefined) => {
         return arg || "";

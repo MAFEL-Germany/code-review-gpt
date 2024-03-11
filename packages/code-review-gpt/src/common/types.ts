@@ -43,6 +43,10 @@ export type ReviewArgs = {
   reviewType: string;
   org: string | undefined;
   remote: string | undefined;
+  remoteType: string | undefined;
+  remoteGitlabProjectId: string | undefined;
+  remoteGitlabMergeId: string | undefined;
+  remoteHostUrl: string | undefined;
   provider: string;
   _: (string | number)[];
   $0: string;
