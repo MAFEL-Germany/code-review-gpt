@@ -43,6 +43,8 @@ export const languageMap: { [key: string]: string } = {
   ".vue": "Vue",
   ".tf": "Terraform",
   ".hcl": "Terraform",
+  ".txt": "Text",
+  ".xml": "Extensible Markup Language"
 };
 
 export const supportedFiles = new Set(Object.keys(languageMap));

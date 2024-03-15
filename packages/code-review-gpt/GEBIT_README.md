@@ -9,5 +9,6 @@ npm run review -- --remoteGitlabProjectId=1390 --remoteGitlabMergeId=17 --remote
 
 For this the gitlab access token needs to be set:
 ```bash
-set GITLAB_TOKEN=<PASSWORD>
+GITLAB_TOKEN=<PASSWORD>
+OPENAI_API_KEY=<KEY>
 ```

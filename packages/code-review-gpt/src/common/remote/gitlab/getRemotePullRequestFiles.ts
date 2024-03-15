@@ -49,6 +49,8 @@ const diffSchemaToReviewFile = async (diff: CommitDiffSchema, projectId: number,
   return {
     fileName: diff.new_path,
     changedLines: diff.diff,
-    fileContent: file.content
+    fileContent: decodeBase64(file.content)
   }
 }
+
+const decodeBase64 = (str: string):string => Buffer.from(str, 'base64').toString('binary');
