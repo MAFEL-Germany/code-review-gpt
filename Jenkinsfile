@@ -15,28 +15,29 @@ if (env.gitlabActionType) {
                 println "$key=$value"
             }
             println "These are the current files: "
-            def currentDir = new File('.')
+            def currentDir = new File('./')
             def files = currentDir.listFiles().findAll { it.isFile() }
             files.each { println it.name }
-            if (projectId == "") {
+            def abort = false
+            if (projectId == null) {
                 println "No project id found"
-                currentBuild.result = 'ABORTED'
-                return
+                abort = true
             }
-            if (mergeRequestId == "") {
+            if (mergeRequestId == null) {
                 println "No merge request id found"
-                currentBuild.result = 'ABORTED'
-                return
+                abort = true
             }
             def gitlab_token = System.getenv("gitlab_token")
-            if (gitlab_token == "") {
+            if (gitlab_token == null) {
                 println "No gitlab token found"
-                currentBuild.result = 'ABORTED'
-                return
+                abort = true
             }
             def openAI_apiKey = System.getenv("OPENAI_API_KEY")
-            if (openAI_apiKey == "") {
+            if (openAI_apiKey == null) {
                 println "No openAI api key found"
+                abort = true
+            }
+            if (abort) {
                 currentBuild.result = 'ABORTED'
                 return
             }
