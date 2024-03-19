@@ -71,6 +71,11 @@ export const getYargs = async (): Promise<ReviewArgs> => {
       choices: ["github", "gitlab"],
       default: "gitlab"
     })
+    .option("comment", {
+      description: "Should comment on remote pull request",
+      type: "boolean",
+      default: false
+    })
     .option("remoteGitlabProjectId", {
       description: "The id of a remote GitLab project",
       type: "string",

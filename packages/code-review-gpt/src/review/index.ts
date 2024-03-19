@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
 import { commentOnPR as commentOnPRGithub } from "../common/ci/github/commentOnPR";
 import { commentPerFile } from "../common/ci/github/commentPerFile";
-import { commentOnPR as commentOnPRGitlab } from "../common/ci/gitlab/commentOnPR";
+import { commentOnPR as commentOnPRGitlab, commentOnPrCI as commentOnPRGithubCI } from "../common/ci/gitlab/commentOnPR";
 import { getMaxPromptLength } from "../common/model/getMaxPromptLength";
 import { PlatformOptions, ReviewArgs, ReviewFile } from "../common/types";
 import { logger } from "../common/utils/logger";
@@ -68,7 +68,7 @@ export const review = async (
 
   logger.debug(`Markdown report:\n ${response}`);
 
-  if (isCi === PlatformOptions.GITHUB) {
+  if (isCi === PlatformOptions.GITHUB || (yargs.comment && yargs.remote != undefined)) {
     if (!shouldCommentPerFile) {
       await commentOnPRGithub(response, signOff);
     }
@@ -77,7 +77,9 @@ export const review = async (
     }
   }
   if (isCi === PlatformOptions.GITLAB) {
-    await commentOnPRGitlab(response, signOff);
+    await commentOnPRGithubCI(response, signOff);
+  } else if (yargs.comment && yargs.remoteGitlabProjectId != undefined) {
+    await commentOnPRGitlab(response, signOff, yargs.remoteGitlabProjectId, yargs.remoteGitlabMergeId ?? "", yargs.remoteHostUrl ?? "")
   }
 
   return response;

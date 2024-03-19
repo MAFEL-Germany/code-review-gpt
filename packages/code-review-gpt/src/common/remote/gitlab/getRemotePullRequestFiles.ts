@@ -1,7 +1,5 @@
 import { ReviewFile } from "../../types";
-import { extractBaseUrl } from "./extractBaseUrl";
 import { CommitDiffSchema, Gitlab } from "@gitbeaker/rest";
-import { MergeRequestIdentifier } from "./types";
 import { logger } from "../../utils/logger";
 
 export const getRemotePullRequestFiles = async (
