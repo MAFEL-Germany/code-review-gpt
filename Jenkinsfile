@@ -10,9 +10,11 @@ if (env.gitlabActionType) {
             env.getEnvironment().each {k,v->
                 println "$k=$v"
             }
-            def projectId = env.project.id
-            def mergeRequestId = env.object_attributes.iid
-            println "Loaded variables: projectId: ${projectId}, mergeRequestId: ${mergeRequestId}"
+            def projectId = null
+            def mergeRequestId = null
+            //def projectId = env.project.id
+            //def mergeRequestId = env.object_attributes.iid
+            //println "Loaded variables: projectId: ${projectId}, mergeRequestId: ${mergeRequestId}"
             def abort = false
             if (projectId == null) {
                 println "No project id found"
