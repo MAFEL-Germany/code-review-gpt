@@ -6,18 +6,9 @@ if (env.gitlabActionType) {
             checkoutProject()
         }
         stage('Loading variables') {
-            def projectId = System.getenv('project.id')
-            def mergeRequestId = System.getenv('object_attributes.iid')
+            def projectId = env.project.id
+            def mergeRequestId = env.object_attributes.iid
             println "Loaded variables: projectId: ${projectId}, mergeRequestId: ${mergeRequestId}"
-            println "Available variables:"
-            def env = System.getenv()
-            env.each { key, value ->
-                println "$key=$value"
-            }
-            println "These are the current files: "
-            def currentDir = new File('./')
-            def files = currentDir.listFiles().findAll { it.isFile() }
-            files.each { println it.name }
             def abort = false
             if (projectId == null) {
                 println "No project id found"
@@ -27,12 +18,15 @@ if (env.gitlabActionType) {
                 println "No merge request id found"
                 abort = true
             }
-            def gitlab_token = System.getenv("gitlab_token")
-            if (gitlab_token == null) {
-                println "No gitlab token found"
-                abort = true
+            withCredentials([string(credentialsId: 'gitlab_token', variable: 'gitlab_token')]) {
+                if (env.gitlab_token == null) {
+                    println "No gitlab token found"
+                    abort = true
+                } else {
+                    println "Loaded gitlab token!"
+                }
             }
-            def openAI_apiKey = System.getenv("OPENAI_API_KEY")
+            def openAI_apiKey = env.OPENAI_API_KEY
             if (openAI_apiKey == null) {
                 println "No openAI api key found"
                 abort = true
