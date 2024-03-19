@@ -6,6 +6,10 @@ if (env.gitlabActionType) {
             checkoutProject()
         }
         stage('Loading variables') {
+            println "Available variables:"
+            env.getEnvironment().each {k,v->
+                println "$k=$v"
+            }
             def projectId = env.project.id
             def mergeRequestId = env.object_attributes.iid
             println "Loaded variables: projectId: ${projectId}, mergeRequestId: ${mergeRequestId}"
@@ -38,13 +42,10 @@ if (env.gitlabActionType) {
         }
         stage('Build') {
             println 'building...'
-            def command = "npm install"
-            def workingDir = new File("packages/code-review-gpt")
-            def processBuilder = new ProcessBuilder(command)
-            processBuilder.directory(workingDir)
-            def process = processBuilder.start()
-            process.waitFor()
-            println process.in.text
+            sh '''
+                cd packages/code-review-gpt
+                npm install
+                '''
         }
     }
 } else {
