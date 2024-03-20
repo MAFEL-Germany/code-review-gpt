@@ -1,5 +1,7 @@
 library changelog: false, identifier: "gebit-jenkins@${GEBIT_BUILD_BRANCH}"
 
+def projectId = env.gitlabMergeRequestTargetProjectId
+def mergeRequestId = env.gitlabMergeRequestId
 if (env.gitlabActionType) {
     withCredentials([string(credentialsId: 'gitlab_token', variable: 'GITLAB_TOKEN'), string(credentialsId: 'openai-api', variable: 'OPENAI_API_KEY')]) {
         buildSimplePipeline(this) {
@@ -11,8 +13,6 @@ if (env.gitlabActionType) {
                 env.getEnvironment().each {k,v->
                     println "$k=$v"
                 }
-                def projectId = env.gitlabMergeRequestTargetProjectId
-                def mergeRequestId = env.gitlabMergeRequestId
                 println "Loaded variables: projectId: ${projectId}, mergeRequestId: ${mergeRequestId}"
                 def abort = false
                 if (projectId == null) {
