@@ -41,11 +41,11 @@ if (env.gitlabActionType) {
             }
             stage('Build') {
                 println 'building...'
-                sh '''
+                sh "
                     cd packages/code-review-gpt
                     npm install
                     npm run review -- --remoteGitlabProjectId=$projectId --remoteGitlabMergeId=$mergeRequestId --remoteHostUrl=https://gitlab.local.gebit.de/ 
-                    '''
+                    "
             }
         }
     }
