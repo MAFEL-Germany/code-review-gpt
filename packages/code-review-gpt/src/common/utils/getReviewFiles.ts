@@ -9,7 +9,6 @@ export const getReviewFiles = async (
   mergeRequestId: string | undefined,
   host: string | undefined,
 ): Promise<ReviewFile[]> => {
-  logger.info("remote: " + remotePullRequest)
     if (remoteType == "gitlab") {
       logger.info("Using gitlab remote pull request")
       const { getRemotePullRequestFiles } = await import(

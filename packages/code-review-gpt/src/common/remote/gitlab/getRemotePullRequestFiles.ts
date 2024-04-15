@@ -16,12 +16,21 @@ export const getRemotePullRequestFiles = async (
     const gitlabToken = process.env.GITLAB_TOKEN ?? "";
     if (gitlabToken == "") {
         throw new Error("GITLAB_TOKEN must be defined");
+    } else {
+      logger.info("Token length: " + gitlabToken.length)
     }
     const api = new Gitlab({
         host: host,
         token: gitlabToken,
       });
-    const ref = await getHeadSha(api, projectId, mergeRequestId);
+    let ref;
+    try {
+      ref = await getHeadSha(api, projectId, mergeRequestId);
+    } catch (error) {
+      logger.error("Could not get head sha", error);
+      throw error;
+    }
+    
     logger.info("Retrieved ref: " + ref)
     const changes = await api.MergeRequests.showChanges(projectId, mergeRequestId);
     const reviewFiles = await Promise.all(changes.changes.map(async (change) => {
