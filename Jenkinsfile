@@ -23,7 +23,7 @@ if (env.gitlabActionType) {
                     println "No merge request id found"
                     abort = true
                 }
-                if (env.GITLAB_TOKEN == null) {
+                if (env.GITLAB_TOKEN == null || env.GITLAB_TOKEN == '') {
                     println "No gitlab token found"
                     abort = true
                 } else {
@@ -44,7 +44,7 @@ if (env.gitlabActionType) {
                 sh """
                     cd packages/code-review-gpt
                     npm install
-                    npm run review -- --remoteGitlabProjectId=$projectId --remoteGitlabMergeId=$mergeRequestId --remoteHostUrl=https://gitlab.local.gebit.de/ 
+                    npm run review -- --remoteGitlabProjectId=$projectId --remoteGitlabMergeId=$mergeRequestId --remoteHostUrl=https://gitlab.local.gebit.de/ --comment
                     """
             }
         }

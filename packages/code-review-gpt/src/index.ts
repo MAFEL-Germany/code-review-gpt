@@ -22,7 +22,7 @@ const main = async () => {
     case "review": {
       const { review } = await import("./review");
       const { getReviewFiles } = await import("./common/utils/getReviewFiles");
-      logger.info("Loaded functio ")
+      logger.info("Loaded function")
       const files = await getReviewFiles(argv.ci, argv.remoteType, argv.remote, argv.remoteGitlabProjectId, argv.remoteGitlabMergeId, argv.remoteHostUrl);
       logger.info("files: ", files)
       await review(argv, files, openAIApiKey);
