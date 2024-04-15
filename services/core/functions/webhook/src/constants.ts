@@ -1,5 +1,4 @@
-export const signOff =
-  "#### Powered by [Code Review GPT](https://github.com/mattzcarey/code-review-gpt)";
+export const signOff = "" //"#### Powered by [Code Review GPT](https://github.com/mattzcarey/code-review-gpt)";
 
 export const modelInfo = [
   {

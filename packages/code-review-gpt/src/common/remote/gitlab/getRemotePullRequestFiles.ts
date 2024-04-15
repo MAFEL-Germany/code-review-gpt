@@ -23,7 +23,7 @@ export const getRemotePullRequestFiles = async (
         host: host,
         token: gitlabToken,
       });
-    let ref;
+    let ref: string;
     try {
       ref = await getHeadSha(api, projectId, mergeRequestId);
     } catch (error) {
