@@ -1,10 +1,10 @@
 import { OpenAIChat } from "langchain/llms/openai";
+import { Ollama } from "@langchain/community/llms/ollama";
 import { retryAsync } from "ts-retry";
 
 import { IFeedback } from "../types";
 import { logger } from "../utils/logger";
 import { parseAttributes } from "../utils/parseAttributes";
-
 interface IAIModel {
   modelName: string;
   provider: string;
@@ -17,7 +17,7 @@ interface IAIModel {
 const defaultRetryCount = 3;
 
 class AIModel {
-  private model: OpenAIChat;
+  private model: OpenAIChat | Ollama;
   private retryCount: number;
 
   constructor(options: IAIModel) {
@@ -28,6 +28,12 @@ class AIModel {
           modelName: options.modelName,
           temperature: options.temperature,
           configuration: { organization: options.organization },
+        });
+        break;
+      case "ollama":
+        this.model = new Ollama({
+          baseUrl: "http://localhost:11434",
+          model: options.modelName,
         });
         break;
       case "bedrock":

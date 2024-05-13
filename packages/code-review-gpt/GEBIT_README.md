@@ -12,3 +12,8 @@ For this the gitlab access token needs to be set:
 GITLAB_TOKEN=<PASSWORD>
 OPENAI_API_KEY=<KEY>
 ```
+
+Run with ollama:
+```
+npm run review -- --provider=ollama --remoteGitlabProjectId=1390 --remoteGitlabMergeId=17 --remoteHostUrl=https://gitlab.local.gebit.de/ --comment
+```
