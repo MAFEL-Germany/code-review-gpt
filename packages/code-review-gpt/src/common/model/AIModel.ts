@@ -34,6 +34,7 @@ class AIModel {
         this.model = new Ollama({
           baseUrl: "http://localhost:11434",
           model: options.modelName,
+          format: "json",
         });
         break;
       case "bedrock":

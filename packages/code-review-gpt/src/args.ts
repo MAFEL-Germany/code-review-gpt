@@ -66,10 +66,10 @@ export const getYargs = async (): Promise<ReviewArgs> => {
       },
     })
     .option("remoteType", {
-      description: "The identifier of a remote GitHub Pull Request to review",
+      description: "The type of the remote pull request. Defaults to 'github'.",
       type: "string",
       choices: ["github", "gitlab"],
-      default: "gitlab"
+      default: "github"
     })
     .option("comment", {
       description: "Should comment on remote pull request",
@@ -109,7 +109,7 @@ export const getYargs = async (): Promise<ReviewArgs> => {
     })
     .option("provider", {
       description: "Provider to use for AI",
-      choices: ["openai", "bedrock", "gebit"],
+      choices: ["openai", "bedrock", "ollama"],
       type: "string",
       default: "openai",
     })

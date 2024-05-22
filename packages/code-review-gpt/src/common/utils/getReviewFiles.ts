@@ -15,7 +15,7 @@ export const getReviewFiles = async (
         "../remote/gitlab/getRemotePullRequestFiles"
       );
       return await getRemotePullRequestFiles(host, projectId, mergeRequestId);
-    } else if (remoteType == "github.") {
+    } else if (remoteType == "github") {
       logger.info("Using github remote pull request")
       const { getRemotePullRequestFiles } = await import(
         "../remote/github/getRemotePullRequestFiles"

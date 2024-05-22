@@ -17,6 +17,10 @@ export const modelInfo = [
     model: "gpt-3.5-turbo-16k",
     maxPromptLength: 45000, //16k tokens
   },
+  {
+    model: "llama3",
+    maxPromptLength: 9000, //4k tokens
+  }
 ]; // Response needs about 1k tokens ~= 3k characters
 
 export const languageMap: { [key: string]: string } = {

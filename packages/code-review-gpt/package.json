@@ -12,6 +12,7 @@
     "lint-test": "eslint . --ext=js,ts",
     "start": "ts-node ./src/index.ts",
     "review": "ts-node ./src/index.ts review",
+    "reviewTest": "ts-node ./src/index.ts review --provider=ollama --remote=MAFEL-Germany/autodirector#168 --model=llama3",
     "configure": "ts-node ./src/index.ts configure",
     "test": "ts-node ./src/index.ts test",
     "test-unit": "dotenv -e .env jest",
